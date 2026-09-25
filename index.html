@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Looker Studio SEO Project Dashboard - Summarize Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            height: 320px;
+            max-height: 380px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .metric-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen custom-scrollbar">
+
+    <header class="bg-indigo-900 text-white shadow-lg border-b border-indigo-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+                <div class="flex items-center gap-2">
+                    <span class="bg-indigo-700 text-indigo-200 text-xs font-semibold px-2.5 py-0.5 rounded border border-indigo-500">Mô Phỏng Looker Studio</span>
+                    <span class="text-xs text-indigo-300">Dữ liệu: [Copy] Project SEO VL24h</span>
+                </div>
+                <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white mt-1">
+                    Báo Cáo Quản Trị Tiến Độ & Hiệu Suất Nội Dung SEO
+                </h1>
+            </div>
+            <div class="flex flex-wrap items-center gap-3">
+                <div class="bg-indigo-800/80 p-2 rounded-lg border border-indigo-700 flex items-center gap-2 text-xs">
+                    <span class="text-indigo-300 font-medium">Bộ Lọc Nhân Sự:</span>
+                    <select id="picFilter" class="bg-indigo-950 text-white font-semibold rounded px-2 py-1 outline-none border border-indigo-600 focus:ring-2 focus:ring-teal-400">
+                        <option value="ALL">Tất cả (Phát, Giang, Trúc)</option>
+                        <option value="Phát">Phát (Leader/Main PIC)</option>
+                        <option value="Giang">Giang</option>
+                        <option value="Trúc">Trúc</option>
+                    </select>
+                </div>
+                <div class="bg-indigo-800/80 p-2 rounded-lg border border-indigo-700 flex items-center gap-2 text-xs">
+                    <span class="text-indigo-300 font-medium">Chu Kỳ:</span>
+                    <select id="monthFilter" class="bg-indigo-950 text-white font-semibold rounded px-2 py-1 outline-none border border-indigo-600 focus:ring-2 focus:ring-teal-400">
+                        <option value="ALL">Tất cả (Tháng 8 & 9)</option>
+                        <option value="Tháng 8">Tháng 8</option>
+                        <option value="Tháng 9">Tháng 9</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <section class="bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 text-white rounded-2xl p-6 shadow-md border border-indigo-700">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div class="space-y-2">
+                    <div class="inline-flex items-center gap-2 bg-teal-500/20 text-teal-300 text-xs font-semibold px-3 py-1 rounded-full border border-teal-500/30">
+                        <span>📌</span> Phân Tích Chuyên Gia Data Analytics
+                    </div>
+                    <h2 class="text-lg md:text-xl font-bold">Tóm Tắt Vận Hành & Điểm Nghẽn Chiến Dịch</h2>
+                    <p class="text-sm text-indigo-200 leading-relaxed max-w-4xl">
+                        Dữ liệu từ tab <span class="text-teal-300 font-semibold">Summarize</span> cho thấy dự án đã khởi tạo <span class="font-bold text-white">205 bài viết</span>, trong đó Tháng 8 đã nghiệm thu xuất sắc 100% kế hoạch (110 bài). Tuy nhiên, hệ thống đang gặp <span class="text-rose-300 font-bold">điểm nghẽn nghiêm trọng tại khâu Xuất bản</span> khi chỉ mới có 33 bài được đăng tải (tỷ lệ 30%), lãng phí 77 bài viết đã hoàn thiện. Đồng thời, Tháng 9 đang đối mặt với sự gián đoạn trong khâu phê duyệt.
+                    </p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/15 text-center min-w-[200px] shrink-0">
+                    <div class="text-xs text-indigo-200 uppercase font-bold tracking-wider">Tổng Ngân Sách Đã Chi</div>
+                    <div class="text-2xl font-extrabold text-teal-300 mt-1" id="totalSpentText">4.950.000 VNĐ</div>
+                    <div class="text-xs text-indigo-300 mt-1">33 bài x 150.000 VNĐ</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-base font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                    <span class="w-2.5 h-6 bg-teal-500 rounded-full inline-block"></span>
+                    Tầng 1: Các Chỉ Số Đo Lường Cốt Lõi (Scorecards / KPIs)
+                </h3>
+                <span class="text-xs text-slate-500">Cập nhật theo dữ liệu thực tế trang Summarize</span>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div class="metric-card bg-white p-5 rounded-xl border border-slate-200 shadow-sm border-t-4 border-t-indigo-600">
+                    <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Tổng Kế Hoạch</div>
+                    <div class="text-2xl font-black text-indigo-950 mt-2" id="kpiTotal">205</div>
+                    <div class="text-[11px] text-slate-500 mt-1">Bài viết dự án</div>
+                </div>
+
+                <div class="metric-card bg-white p-5 rounded-xl border border-slate-200 shadow-sm border-t-4 border-t-blue-500">
+                    <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Đã Viết Xong</div>
+                    <div class="text-2xl font-black text-blue-600 mt-2" id="kpiDone">143</div>
+                    <div class="text-[11px] font-medium text-blue-600 mt-1" id="kpiDonePct">69,8% kế hoạch</div>
+                </div>
+
+                <div class="metric-card bg-white p-5 rounded-xl border border-slate-200 shadow-sm border-t-4 border-t-emerald-500">
+                    <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Đã Duyệt Đạt</div>
+                    <div class="text-2xl font-black text-emerald-600 mt-2" id="kpiApproved">110</div>
+                    <div class="text-[11px] font-medium text-emerald-600 mt-1" id="kpiApprovedPct">76,9% bài xong</div>
+                </div>
+
+                <div class="metric-card bg-white p-5 rounded-xl border border-slate-200 shadow-sm border-t-4 border-t-amber-500">
+                    <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Cần Chỉnh Sửa</div>
+                    <div class="text-2xl font-black text-amber-600 mt-2" id="kpiFixing">36</div>
+                    <div class="text-[11px] font-medium text-amber-600 mt-1" id="kpiFixingPct">17,6% tổng số</div>
+                </div>
+
+                <div class="metric-card bg-white p-5 rounded-xl border border-slate-200 shadow-sm border-t-4 border-t-teal-500">
+                    <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Đã Xuất Bản</div>
+                    <div class="text-2xl font-black text-teal-600 mt-2" id="kpiPublished">33</div>
+                    <div class="text-[11px] font-medium text-teal-600 mt-1" id="kpiPublishedPct">30,0% bài duyệt</div>
+                </div>
+
+                <div class="metric-card bg-white p-5 rounded-xl border border-slate-200 shadow-sm border-t-4 border-t-rose-500">
+                    <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Tồn Tồn Đọng</div>
+                    <div class="text-2xl font-black text-rose-600 mt-2" id="kpiPending">95</div>
+                    <div class="text-[11px] font-medium text-rose-600 mt-1">Chưa hoàn thành</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div class="lg:col-span-7 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <h4 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <span>📊</span> Tiến Độ Sản Xuất Chi Tiết Theo Tháng (Chu Kỳ)
+                        </h4>
+                        <span class="text-xs font-semibold bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-md">Khối B27:I29</span>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-4">
+                        So sánh các giai đoạn luân chuyển bài viết từ kế hoạch ban đầu, tiến độ hoàn thành viết, kết quả phê duyệt nghiệm thu đến thực tế xuất bản trên website qua từng tháng.
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="monthlyProgressChart"></canvas>
+                    </div>
+                </div>
+                <div class="mt-4 p-3.5 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1">
+                    <div class="font-bold text-indigo-950">💡 Góc nhìn Phân tích (Analytics Insight):</div>
+                    <p>• <span class="font-semibold text-emerald-700">Tháng 8:</span> Đạt hiệu suất biên tập 100% (110/110 bài duyệt). Tuy nhiên khâu đăng bài chỉ đạt 30% (33 bài), để tồn 77 bài chưa đăng.</p>
+                    <p>• <span class="font-semibold text-rose-700">Tháng 9:</span> Đã viết xong 33/95 bài (34,7%), nhưng toàn bộ chỉ số duyệt và đăng bài bằng 0, cho thấy quy trình kiểm duyệt Tháng 9 bị dừng lại.</p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <h4 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <span>🍩</span> Cấu Trúc Trạng Thái Bài Viết Toàn Dự Án
+                        </h4>
+                        <span class="text-xs font-semibold bg-teal-50 text-teal-700 px-2.5 py-1 rounded-md">Phân Tỷ Trọng</span>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-4">
+                        Tỷ lệ phân bổ 205 bài viết theo từng trạng thái xử lý hiện tại trong luồng công việc (Workflow).
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="statusDistributionChart"></canvas>
+                    </div>
+                </div>
+                <div class="mt-4 p-3.5 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900">
+                    <span class="font-bold">⚠️ Cảnh báo nghẽn luồng:</span> Khối bài <span class="font-semibold">"Đã duyệt chờ đăng" (37,6%)</span> chiếm tỷ trọng lớn hơn cả tổng số bài đã xuất bản (16,1%). Đây là nguyên nhân khiến giá trị SEO chưa được kích hoạt trên hệ thống web.
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div class="lg:col-span-7 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <h4 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <span>👥</span> Đánh Giá Hiệu Suất & Chất Lượng Theo Nhân Sự (PIC)
+                        </h4>
+                        <span class="text-xs font-semibold bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-md">Khối K25:S30</span>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-4">
+                        Đo lường sản lượng hoàn thành và tỷ lệ phát sinh sửa chữa (Fix 1) của từng nhân sự sản xuất nội dung.
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="picPerformanceChart"></canvas>
+                    </div>
+                </div>
+                <div class="mt-4 p-3.5 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1">
+                    <div class="font-bold text-indigo-950">🔎 Đánh giá chất lượng bản thảo đầu tiên:</div>
+                    <p>• <span class="font-semibold text-rose-700">Phát (Main PIC):</span> Đạt 100% khối lượng giao (50 bài), nhưng tỷ lệ sửa lần 1 là 100% (50/50 bài cần sửa). Tốn nhiều nguồn lực hậu kiểm.</p>
+                    <p>• <span class="font-semibold text-indigo-700">Giang & Trúc:</span> Tỷ lệ cần sửa lần 1 thấp hơn, đạt lần lượt 67,9% (19/28 bài) và 68,8% (22/32 bài).</p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <h4 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <span>💰</span> Phân Bổ Ngân Sách Nhuận Bút Theo Nhân Sự
+                        </h4>
+                        <span class="text-xs font-semibold bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-md">Khối B37:F43</span>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-4">
+                        Cấu trúc chi trả nhuận bút thực tế tính trên số bài đã Xuất Bản (Đơn giá: 150.000 VNĐ/bài).
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="budgetDistributionChart"></canvas>
+                    </div>
+                </div>
+                <div class="mt-4 p-3.5 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-700 space-y-2">
+                    <div class="flex justify-between items-center border-b border-slate-200 pb-1">
+                        <span>Phát (28 bài Published):</span>
+                        <span class="font-bold text-slate-900">4.200.000 VNĐ (84,8%)</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-200 pb-1">
+                        <span>Giang (3 bài Published):</span>
+                        <span class="font-bold text-slate-900">450.000 VNĐ (9,1%)</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span>Trúc (2 bài Published):</span>
+                        <span class="font-bold text-slate-900">300.000 VNĐ (6,1%)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+                <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                    <span>🛠️</span> Hướng Dẫn Xây Dựng Dashboard Này Trên Google Looker Studio
+                </h3>
+                <span class="text-xs font-medium bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">Dành Cho Data Analyst & PM</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                    <div class="font-bold text-indigo-900 flex items-center gap-2">
+                        <span class="w-5 h-5 bg-indigo-600 text-white rounded-full inline-flex items-center justify-center text-xs">1</span>
+                        Cấu Hình Kết Nối Dữ Liệu
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Do tab Summarize không ở dạng bảng phẳng, hãy dùng phương pháp <span class="font-semibold text-slate-800">Named Ranges (Dải ô có tên)</span> trên Google Sheets hoặc tạo các Data Source riêng trong Looker Studio với Option <span class="font-semibold text-slate-800">"Use first row as headers"</span>:
+                    </p>
+                    <ul class="text-xs text-slate-700 list-disc pl-4 space-y-1 font-mono">
+                        <li>Tiến độ tháng: Summarize!B27:I29</li>
+                        <li>Hiệu suất PIC: Summarize!K25:S30</li>
+                        <li>Nhuận bút: Summarize!B37:F43</li>
+                        <li>Từ khóa chi tiết: Summarize!H41:M254</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                    <div class="font-bold text-indigo-900 flex items-center gap-2">
+                        <span class="w-5 h-5 bg-indigo-600 text-white rounded-full inline-flex items-center justify-center text-xs">2</span>
+                        Trường Tính Toán (Calculated Fields)
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Tạo thêm các chỉ số phái sinh trên Looker Studio để nâng cao năng lực giám sát:
+                    </p>
+                    <div class="space-y-1.5 text-xs font-mono bg-white p-2.5 rounded border border-slate-200">
+                        <div class="text-indigo-700 font-semibold">// Tỷ lệ Xuất bản / Duyệt</div>
+                        <div class="text-slate-800">SUM(Đã Published) / SUM(Đã duyệt)</div>
+                        <div class="text-indigo-700 font-semibold mt-1">// Tỷ lệ Lỗi Bản Thảo Đầu</div>
+                        <div class="text-slate-800">SUM(Fix 1) / SUM(Đã Done)</div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                    <div class="font-bold text-indigo-900 flex items-center gap-2">
+                        <span class="w-5 h-5 bg-indigo-600 text-white rounded-full inline-flex items-center justify-center text-xs">3</span>
+                        Bố Cục & Trải Nghiệm UX
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Áp dụng nguyên tắc thiết kế dashboard chuyên nghiệp:
+                    </p>
+                    <ul class="text-xs text-slate-700 list-disc pl-4 space-y-1">
+                        <li><span class="font-semibold">Top Banner:</span> Đặt Scorecards tổng hợp cấp cao nhất (Tổng bài, Đã duyệt, Đã đăng).</li>
+                        <li><span class="font-semibold">Mid Section:</span> Đặt Biểu đồ cột nhóm so sánh xu hướng tiến độ và biểu đồ chất lượng.</li>
+                        <li><span class="font-semibold">Bottom Section:</span> Đặt bảng chi tiết từ khóa có tính năng Search và bộ lọc tương tác.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 text-center text-xs">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>Báo cáo Quản trị Dự án SEO VL24h • Thiết kế chuẩn Data Analytics cho Google Looker Studio</p>
+        </div>
+    </footer>
+
+    <script>
+        const rawData = {
+            kpis: {
+                total: 205,
+                done: 143,
+                approved: 110,
+                fixing: 36,
+                published: 33,
+                pending: 95
+            },
+            monthly: [
+                { month: 'Tháng 8', planned: 110, written: 110, approved: 110, published: 33 },
+                { month: 'Tháng 9', planned: 95, written: 33, approved: 0, published: 0 }
+            ],
+            pics: [
+                { name: 'Phát', assigned: 50, done: 50, fix1: 50, approved: 50, published: 28, payment: 4200000 },
+                { name: 'Giang', assigned: 28, done: 28, fix1: 19, approved: 28, published: 3, payment: 450000 },
+                { name: 'Trúc', assigned: 32, done: 32, fix1: 22, approved: 32, published: 2, payment: 300000 }
+            ]
+        };
+
+        function formatLabel(str, maxLen = 16) {
+            if (typeof str !== 'string' || str.length <= maxLen) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = '';
+            words.forEach(word => {
+                if ((currentLine + ' ' + word).trim().length > maxLen) {
+                    if (currentLine) lines.push(currentLine.trim());
+                    currentLine = word;
+                } else {
+                    currentLine = (currentLine + ' ' + word).trim();
+                }
+            });
+            if (currentLine) lines.push(currentLine.trim());
+            return lines;
+        }
+
+        const sharedTooltipConfig = {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                                return label.join(' ');
+                            } else {
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        let monthlyChartInstance = null;
+        let statusChartInstance = null;
+        let picChartInstance = null;
+        let budgetChartInstance = null;
+
+        function initCharts() {
+            const ctxMonthly = document.getElementById('monthlyProgressChart').getContext('2d');
+            monthlyChartInstance = new Chart(ctxMonthly, {
+                type: 'bar',
+                data: {
+                    labels: [formatLabel('Tháng 8 (Chu kỳ 1)'), formatLabel('Tháng 9 (Chu kỳ 2)')],
+                    datasets: [
+                        { label: 'Kế Hoạch Giao', data: [110, 95], backgroundColor: '#6366F1' },
+                        { label: 'Đã Viết Xong', data: [110, 33], backgroundColor: '#3B82F6' },
+                        { label: 'Đã Kiểm Duyệt', data: [110, 0], backgroundColor: '#10B981' },
+                        { label: 'Đã Xuất Bản', data: [33, 0], backgroundColor: '#14B8A6' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        ...sharedTooltipConfig.plugins,
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: '#F1F5F9' } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+
+            const ctxStatus = document.getElementById('statusDistributionChart').getContext('2d');
+            statusChartInstance = new Chart(ctxStatus, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        formatLabel('Đã Xuất Bản (Published)'),
+                        formatLabel('Đã Duyệt Chờ Đăng'),
+                        formatLabel('Cần Sửa Lại (Fixing)'),
+                        formatLabel('Chưa Duyệt / Đang Viết')
+                    ],
+                    datasets: [{
+                        data: [33, 77, 36, 59],
+                        backgroundColor: ['#14B8A6', '#3B82F6', '#F59E0B', '#94A3B8'],
+                        borderWidth: 2,
+                        borderColor: '#FFFFFF'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        ...sharedTooltipConfig.plugins,
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+                    },
+                    cutout: '65%'
+                }
+            });
+
+            const ctxPic = document.getElementById('picPerformanceChart').getContext('2d');
+            picChartInstance = new Chart(ctxPic, {
+                type: 'bar',
+                data: {
+                    labels: rawData.pics.map(p => formatLabel(`PIC: ${p.name}`)),
+                    datasets: [
+                        { label: 'Đạt Ngay Lần 1', data: [0, 9, 10], backgroundColor: '#10B981' },
+                        { label: 'Phát Sinh Sửa Lần 1', data: [50, 19, 22], backgroundColor: '#F43F5E' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        ...sharedTooltipConfig.plugins,
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+                    },
+                    scales: {
+                        x: { stacked: true, grid: { display: false } },
+                        y: { stacked: true, beginAtZero: true, grid: { color: '#F1F5F9' } }
+                    }
+                }
+            });
+
+            const ctxBudget = document.getElementById('budgetDistributionChart').getContext('2d');
+            budgetChartInstance = new Chart(ctxBudget, {
+                type: 'doughnut',
+                data: {
+                    labels: rawData.pics.map(p => formatLabel(`${p.name} (${(p.payment/1000).toLocaleString('vi-VN')}K VNĐ)`)),
+                    datasets: [{
+                        data: rawData.pics.map(p => p.payment),
+                        backgroundColor: ['#4F46E5', '#06B6D4', '#10B981'],
+                        borderWidth: 2,
+                        borderColor: '#FFFFFF'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        ...sharedTooltipConfig.plugins,
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+                    },
+                    cutout: '60%'
+                }
+            });
+        }
+
+        function updateDashboard(selectedPic, selectedMonth) {
+            let filteredPics = rawData.pics;
+            if (selectedPic !== 'ALL') {
+                filteredPics = rawData.pics.filter(p => p.name === selectedPic);
+            }
+
+            let filteredMonthly = rawData.monthly;
+            if (selectedMonth !== 'ALL') {
+                filteredMonthly = rawData.monthly.filter(m => m.month === selectedMonth);
+            }
+
+            let totalSpent = filteredPics.reduce((sum, p) => sum + p.payment, 0);
+            if (selectedPic === 'ALL' && selectedMonth === 'Tháng 9') {
+                totalSpent = 0;
+            }
+            document.getElementById('totalSpentText').innerText = totalSpent.toLocaleString('vi-VN') + ' VNĐ';
+
+            picChartInstance.data.labels = filteredPics.map(p => formatLabel(`PIC: ${p.name}`));
+            picChartInstance.data.datasets[0].data = filteredPics.map(p => p.done - p.fix1);
+            picChartInstance.data.datasets[1].data = filteredPics.map(p => p.fix1);
+            picChartInstance.update();
+
+            budgetChartInstance.data.labels = filteredPics.map(p => formatLabel(`${p.name} (${(p.payment/1000).toLocaleString('vi-VN')}K VNĐ)`));
+            budgetChartInstance.data.datasets[0].data = filteredPics.map(p => p.payment);
+            budgetChartInstance.update();
+
+            monthlyChartInstance.data.labels = filteredMonthly.map(m => formatLabel(`${m.month} (Chu kỳ)`));
+            monthlyChartInstance.data.datasets[0].data = filteredMonthly.map(m => m.planned);
+            monthlyChartInstance.data.datasets[1].data = filteredMonthly.map(m => m.written);
+            monthlyChartInstance.data.datasets[2].data = filteredMonthly.map(m => m.approved);
+            monthlyChartInstance.data.datasets[3].data = filteredMonthly.map(m => m.published);
+            monthlyChartInstance.update();
+        }
+
+        document.getElementById('picFilter').addEventListener('change', (e) => {
+            updateDashboard(e.target.value, document.getElementById('monthFilter').value);
+        });
+
+        document.getElementById('monthFilter').addEventListener('change', (e) => {
+            updateDashboard(document.getElementById('picFilter').value, e.target.value);
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+        });
+    </script>
+</body>
+</html>
