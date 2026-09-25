@@ -51,23 +51,23 @@
                     <span class="text-xs text-indigo-300">Dữ liệu: [Copy] Project SEO VL24h</span>
                 </div>
                 <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white mt-1">
-                    Báo Cáo Quản Trị Tiến Độ & Hiệu Suất Nội Dung SEO
+                    THEO DÕI HIỆU SUẤT SEO
                 </h1>
             </div>
             <div class="flex flex-wrap items-center gap-3">
                 <div class="bg-indigo-800/80 p-2 rounded-lg border border-indigo-700 flex items-center gap-2 text-xs">
-                    <span class="text-indigo-300 font-medium">Bộ Lọc Nhân Sự:</span>
+                    <span class="text-indigo-300 font-medium">PIC:</span>
                     <select id="picFilter" class="bg-indigo-950 text-white font-semibold rounded px-2 py-1 outline-none border border-indigo-600 focus:ring-2 focus:ring-teal-400">
                         <option value="ALL">Tất cả (Phát, Giang, Trúc)</option>
-                        <option value="Phát">Phát (Leader/Main PIC)</option>
+                        <option value="Phát">Phát </option>
                         <option value="Giang">Giang</option>
                         <option value="Trúc">Trúc</option>
                     </select>
                 </div>
                 <div class="bg-indigo-800/80 p-2 rounded-lg border border-indigo-700 flex items-center gap-2 text-xs">
-                    <span class="text-indigo-300 font-medium">Chu Kỳ:</span>
+                    <span class="text-indigo-300 font-medium">Tháng:</span>
                     <select id="monthFilter" class="bg-indigo-950 text-white font-semibold rounded px-2 py-1 outline-none border border-indigo-600 focus:ring-2 focus:ring-teal-400">
-                        <option value="ALL">Tất cả (Tháng 8 & 9)</option>
+                        <option value="ALL">Tất cả</option>
                         <option value="Tháng 8">Tháng 8</option>
                         <option value="Tháng 9">Tháng 9</option>
                     </select>
@@ -82,15 +82,15 @@
             <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                 <div class="space-y-2">
                     <div class="inline-flex items-center gap-2 bg-teal-500/20 text-teal-300 text-xs font-semibold px-3 py-1 rounded-full border border-teal-500/30">
-                        <span>📌</span> Phân Tích Chuyên Gia Data Analytics
+                        <span>📌</span> Phân Tích Từ Đệ Của Phát
                     </div>
-                    <h2 class="text-lg md:text-xl font-bold">Tóm Tắt Vận Hành & Điểm Nghẽn Chiến Dịch</h2>
+                    <h2 class="text-lg md:text-xl font-bold">Tóm Tắt Vận Hành & Khó khăn</h2>
                     <p class="text-sm text-indigo-200 leading-relaxed max-w-4xl">
                         Dữ liệu từ tab <span class="text-teal-300 font-semibold">Summarize</span> cho thấy dự án đã khởi tạo <span class="font-bold text-white">205 bài viết</span>, trong đó Tháng 8 đã nghiệm thu xuất sắc 100% kế hoạch (110 bài). Tuy nhiên, hệ thống đang gặp <span class="text-rose-300 font-bold">điểm nghẽn nghiêm trọng tại khâu Xuất bản</span> khi chỉ mới có 33 bài được đăng tải (tỷ lệ 30%), lãng phí 77 bài viết đã hoàn thiện. Đồng thời, Tháng 9 đang đối mặt với sự gián đoạn trong khâu phê duyệt.
                     </p>
                 </div>
                 <div class="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/15 text-center min-w-[200px] shrink-0">
-                    <div class="text-xs text-indigo-200 uppercase font-bold tracking-wider">Tổng Ngân Sách Đã Chi</div>
+                    <div class="text-xs text-indigo-200 uppercase font-bold tracking-wider">Tiền được nhận</div>
                     <div class="text-2xl font-extrabold text-teal-300 mt-1" id="totalSpentText">4.950.000 VNĐ</div>
                     <div class="text-xs text-indigo-300 mt-1">33 bài x 150.000 VNĐ</div>
                 </div>
@@ -243,65 +243,6 @@
                 </div>
             </div>
         </section>
-
-        <section class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-            <div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
-                <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
-                    <span>🛠️</span> Hướng Dẫn Xây Dựng Dashboard Này Trên Google Looker Studio
-                </h3>
-                <span class="text-xs font-medium bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">Dành Cho Data Analyst & PM</span>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-                    <div class="font-bold text-indigo-900 flex items-center gap-2">
-                        <span class="w-5 h-5 bg-indigo-600 text-white rounded-full inline-flex items-center justify-center text-xs">1</span>
-                        Cấu Hình Kết Nối Dữ Liệu
-                    </div>
-                    <p class="text-xs text-slate-600 leading-relaxed">
-                        Do tab Summarize không ở dạng bảng phẳng, hãy dùng phương pháp <span class="font-semibold text-slate-800">Named Ranges (Dải ô có tên)</span> trên Google Sheets hoặc tạo các Data Source riêng trong Looker Studio với Option <span class="font-semibold text-slate-800">"Use first row as headers"</span>:
-                    </p>
-                    <ul class="text-xs text-slate-700 list-disc pl-4 space-y-1 font-mono">
-                        <li>Tiến độ tháng: Summarize!B27:I29</li>
-                        <li>Hiệu suất PIC: Summarize!K25:S30</li>
-                        <li>Nhuận bút: Summarize!B37:F43</li>
-                        <li>Từ khóa chi tiết: Summarize!H41:M254</li>
-                    </ul>
-                </div>
-
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-                    <div class="font-bold text-indigo-900 flex items-center gap-2">
-                        <span class="w-5 h-5 bg-indigo-600 text-white rounded-full inline-flex items-center justify-center text-xs">2</span>
-                        Trường Tính Toán (Calculated Fields)
-                    </div>
-                    <p class="text-xs text-slate-600 leading-relaxed">
-                        Tạo thêm các chỉ số phái sinh trên Looker Studio để nâng cao năng lực giám sát:
-                    </p>
-                    <div class="space-y-1.5 text-xs font-mono bg-white p-2.5 rounded border border-slate-200">
-                        <div class="text-indigo-700 font-semibold">// Tỷ lệ Xuất bản / Duyệt</div>
-                        <div class="text-slate-800">SUM(Đã Published) / SUM(Đã duyệt)</div>
-                        <div class="text-indigo-700 font-semibold mt-1">// Tỷ lệ Lỗi Bản Thảo Đầu</div>
-                        <div class="text-slate-800">SUM(Fix 1) / SUM(Đã Done)</div>
-                    </div>
-                </div>
-
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-                    <div class="font-bold text-indigo-900 flex items-center gap-2">
-                        <span class="w-5 h-5 bg-indigo-600 text-white rounded-full inline-flex items-center justify-center text-xs">3</span>
-                        Bố Cục & Trải Nghiệm UX
-                    </div>
-                    <p class="text-xs text-slate-600 leading-relaxed">
-                        Áp dụng nguyên tắc thiết kế dashboard chuyên nghiệp:
-                    </p>
-                    <ul class="text-xs text-slate-700 list-disc pl-4 space-y-1">
-                        <li><span class="font-semibold">Top Banner:</span> Đặt Scorecards tổng hợp cấp cao nhất (Tổng bài, Đã duyệt, Đã đăng).</li>
-                        <li><span class="font-semibold">Mid Section:</span> Đặt Biểu đồ cột nhóm so sánh xu hướng tiến độ và biểu đồ chất lượng.</li>
-                        <li><span class="font-semibold">Bottom Section:</span> Đặt bảng chi tiết từ khóa có tính năng Search và bộ lọc tương tác.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
     </main>
 
     <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 text-center text-xs">
